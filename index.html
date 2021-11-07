@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    
+    <h1>Registre o compromisso</h1>
+
+    <hr>
+
+    <form action="/compromisso" method="post">
+    <label for="compromisso">Compromisso </label>
+    <input type="text" name="compromisso" placeholder="Compromisso"><br>
+    <label for="dia">Dia</label>
+    <input type="date" name="dia" placeholder="Dia"><br>
+    <label for="hora">Hora</label>
+    <input type="time" name="hora" placeholder="hora"><br>
+    <button type="submit">Registrar</button>
+    </form>
+
+    <hr>
+    
+</body>
+
+<script>
+    function ajax(){
+    var xhr = new XMLHttpRequest()
+
+    xhr.open(config.metodo, config.url, true)
+
+    xhr.onload = e => {
+        if(xhr.status == 200){
+            config.resolve(xhr.response)
+        }else if(xhr.status >= 400){
+            config.reject(xhr.status, xhr.statusText)
+        }
+    }
+
+    xhr.send()
+    }
+
+    let config = {
+        metodo:'get',
+        url: '/dados',
+        resolve(response){
+           var dado = JSON.parse(response)
+           dado.data.forEach(target => {
+
+           let item = document.querySelector(`input[value="${target.id}"]`)
+           if(item){
+               return undefined
+           }else{
+            element(target)
+           }
+               
+           })
+        },
+        reject(status, statusText){
+           var aviso = document.createElement('h3')
+           aviso.innerText = 'Houve um erro na operação'
+           var avistoStatus = document.createElement('p')
+           avistoStatus.innerHTML = `Erro: ${status}`
+           var avistoStatusText = document.createElement('p')
+           avistoStatusText.innerHTML = `${statusText}`
+           var corpo =  document.querySelector('body')
+
+            corpo.appendChild(aviso)
+            corpo.appendChild(avistoStatus)
+            corpo.appendChild(avistoStatusText)
+            
+            
+        }
+    }
+
+    
+    ajax(config)
+
+    function element(target){
+       var div = document.createElement('div')
+       var data = document.createElement('input')
+       var hora = document.createElement('input')
+       var compromisso = document.createElement('h3')
+       var button = document.createElement('a')
+       var id = document.createElement('input')
+
+       compromisso.innerText = target.nome
+      
+       button.innerText = 'Deletar'
+        id.setAttribute('type', 'hidden')
+        id.setAttribute('value', target.id)
+        hora.setAttribute('type', 'time')
+        hora.setAttribute('value', target.hora)
+       data.setAttribute('type', 'date')
+       data.setAttribute('value', target.dia)
+       button.setAttribute('href', `/dados/delete/${target.id}`)
+       button.setAttribute('class', 'button')
+        
+       
+       
+       div.appendChild(id)
+       div.appendChild(compromisso)
+        div.appendChild(data)
+        div.appendChild(hora)
+        div.appendChild(button)
+        
+        var body = document.querySelector('body')
+        body.appendChild(div)
+        
+    }
+
+    
+    
+
+</script>
+</html>
