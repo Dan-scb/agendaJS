@@ -32,6 +32,7 @@
     var xhr = new XMLHttpRequest()
 
     xhr.open(config.metodo, config.url, true)
+    xhr.setRequestHeader("Accept", "*/*");
 
     xhr.onload = e => {
         if(xhr.status == 200){

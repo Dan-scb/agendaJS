@@ -1,0 +1,26 @@
+{
+  "name": "agendajs",
+  "version": "1.0.0",
+  "description": "Criei essa simples agenda como forma de aprendizado, usando o Knex para conexão com o banco de dados.\r    É uma aplicação bem simples, para utlizá-la basta preencher o formulário e resgistrar a informação\r    clicando no botão.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dan-scb/agendaJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dan-scb/agendaJS/issues"
+  },
+  "homepage": "https://github.com/Dan-scb/agendaJS#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  }
+}
